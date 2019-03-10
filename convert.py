@@ -16,7 +16,9 @@ def parse_args():
     template_names = [k for k in templates.keys()]
 
     parser = argparse.ArgumentParser(description="An opinionated command line ffmpeg script.")
-    parser.add_argument("-d", "--dry-run", action="store_false",
+    parser.add_argument("-c", "--concat", action="store_true",
+                        help="Concatenate input files into a single output file.")
+    parser.add_argument("-d", "--dry-run", action="store_true",
                         help="Show commands to be executed without executing them.")
     parser.add_argument('-t', '--template', help='The name of a predefined template', required=True)
     parser.add_argument('input', nargs='+', help='One or more input files')
