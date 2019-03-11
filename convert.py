@@ -50,7 +50,7 @@ def build_params(args):
     for input_name in args.input:
         full_input = input_name
         full_output = output_name(input_name, template.get('output_format'))
-        command = [f"-i  {full_input}", *template.get('ffmpeg_params'), full_output]
+        command = [f'-i  "{full_input}"', *template.get('ffmpeg_params'), f'"{full_output}"']
         batch.append(command)
 
     return batch
