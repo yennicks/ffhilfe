@@ -63,7 +63,7 @@ def execute(ffmpeg: str = ffmpeg_bin, params: list = None, args = None):
     command = f"{ffmpeg} {' '.join(params)}"
     print(f"Running: {command}")
     if not args.dry_run:
-        subprocess.run(command, shell=True)
+        subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
 
 
 if __name__ == "__main__":

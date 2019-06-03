@@ -1,5 +1,5 @@
 # ffmpeg-helper
-A simple ffmpeg helper script.
+A simple ffmpeg helper script. Requires Python 3.7 or higher.
 
 # Usage
 ```
