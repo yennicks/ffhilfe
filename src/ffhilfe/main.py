@@ -31,7 +31,10 @@ def parse_args():
     return args
 
 
-def output_name(input_name, output_format):
+def output_name(input_name, output_format, concat=None):
+    if concat:
+        return f"output.{output_format}"
+
     splitted = input_name.split(".")
     assert len(splitted) > 1, f"Invalid input file name {input_name}."
 
@@ -45,7 +48,11 @@ def output_name(input_name, output_format):
 
 def build_params(args):
     template = templates.get(args.template)
+    input_names = args.input
     batch = list()
+
+    if args.concat:
+        full_input = [f"concat|{'|'.join(args.input)}"]
 
     for input_name in args.input:
         full_input = input_name
