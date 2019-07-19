@@ -6,7 +6,7 @@ from ..main import execute, ffmpeg_bin
 
 
 def handler(args):
-    params = [f'-i {args.input}',
+    params = [f'-i "{args.input}"',
               f'-t 1',
               f'-vf cropdetect',
               f'-f null -']
