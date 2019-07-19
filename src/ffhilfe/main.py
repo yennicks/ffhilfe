@@ -15,6 +15,7 @@ templates = {
 
 
 def parse_args():
+    # this part is deprecated.
     template_names = [k for k in templates.keys()]
 
     parser = argparse.ArgumentParser(description="An opinionated command line ffmpeg script.")
@@ -75,8 +76,33 @@ def execute(ffmpeg: str = ffmpeg_bin, params: list = None, args = None):
         subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
 
 
-if __name__ == "__main__":
-    args = parse_args()
+def transcode_handler(args):
+    template_names = [k for k in templates.keys()]
+
+    if args.template not in template_names:
+        print(f"Template {args.template} not found, please one of the following: {', '.join(template_names)}")
+        quit()
+
     params = build_params(args)
     for param in params:
         execute(ffmpeg_bin, param, args)
+
+
+def transcode_cli(subparsers):
+    parser = subparsers.add_parser('transcode')
+
+    parser.add_argument("-c", "--concat", action="store_true",
+                        help="Concatenate input files into a single output file.")
+    parser.add_argument("-d", "--dry-run", action="store_true",
+                        help="Show commands to be executed without executing them.")
+    parser.add_argument('-t', '--template', help='The name of a predefined template', required=True)
+    parser.add_argument('input', nargs='+', help='One or more input files')
+
+    parser.set_defaults(func=transcode_handler)
+
+    return parser
+
+
+if __name__ == "__main__":
+    args = parse_args()
+
