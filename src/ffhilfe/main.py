@@ -51,7 +51,6 @@ def output_name(input_name, output_format, concat=None):
 
 def build_params(args):
     template = templates.get(args.template)
-    input_names = args.input
     batch = list()
 
     if args.concat:
@@ -66,7 +65,7 @@ def build_params(args):
     return batch
 
 
-def execute(ffmpeg: str = ffmpeg_bin, params: list = None, args = None):
+def execute(ffmpeg, params, args):
     assert ffmpeg, "ffmpeg binary is not defined."
     assert params, "params are not defined."
 
@@ -105,4 +104,3 @@ def transcode_cli(subparsers):
 
 if __name__ == "__main__":
     args = parse_args()
-
