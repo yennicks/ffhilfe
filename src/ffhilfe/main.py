@@ -89,7 +89,7 @@ def transcode_handler(args):
 
 
 def transcode_cli(subparsers):
-    parser = subparsers.add_parser('transcode')
+    parser = subparsers.add_parser('transcode', help='Transcodes from one media format to another')
 
     parser.add_argument("-c", "--concat", action="store_true",
                         help="Concatenate input files into a single output file.")

@@ -14,7 +14,7 @@ def handler(args):
 
 
 def cli(subparsers):
-    parser = subparsers.add_parser('cropdetect')
+    parser = subparsers.add_parser('cropdetect', help='Detects the cropping of black borders for a transcode')
     parser.add_argument('input', type=str)
     parser.set_defaults(func=handler)
     parser.set_defaults(dry_run=False)
