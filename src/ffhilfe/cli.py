@@ -3,10 +3,9 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import argparse
-import sys
 
 from .cropdetect.cli import cli as cropdetect_cli
-from .main import build_params, execute, ffmpeg_bin, parse_args, transcode_cli
+from .main import transcode_cli
 
 
 def cli():
@@ -19,8 +18,3 @@ def cli():
 
     args = parser.parse_args()
     args.func(args)
-
-
-    # params = build_params(args)
-    # for param in params:
-    #     execute(ffmpeg_bin, param, args)
