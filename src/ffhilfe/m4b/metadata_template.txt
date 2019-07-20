@@ -1,0 +1,14 @@
+;FFMETADATA1
+title={{ title }}
+artist={{ artist }}
+
+{% for chapter in chapters %}
+[CHAPTER]
+TIMEBASE={{ chapter.timebase }}
+START={{ chapter.start }}
+END={{ chapter.end }}
+title={{ chapter.title }}
+
+{% endfor %}
+[STREAM]
+title={{ stream.title }}
