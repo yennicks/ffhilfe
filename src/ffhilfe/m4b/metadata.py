@@ -24,5 +24,5 @@ class Stream:
 class Metadata:
     title: str
     artist: str = None
-    chapters: list = tuple()
+    chapters: tuple = tuple()
     stream: Stream = None
