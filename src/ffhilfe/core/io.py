@@ -1,3 +1,7 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 import logging
 import random
 import string
@@ -10,7 +14,7 @@ def get_temporary_filename(extension: str) -> str:
     Try to preserve compatibility with 8.3 filename.
     https://en.wikipedia.org/wiki/8.3_filename
 
-    :param extension:
+    :param extension: str
     :return: filename
     """
     prefix = str().join(random.choices(string.ascii_uppercase + string.digits, k=8))
