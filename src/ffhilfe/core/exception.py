@@ -5,3 +5,15 @@
 
 class FfhilfeException(Exception):
     pass
+
+
+class ExecutableNotFound(FfhilfeException):
+    pass
+
+
+class FileDoesNotExist(FfhilfeException):
+    pass
+
+
+class FileExists(FfhilfeException):
+    pass
