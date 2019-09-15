@@ -5,10 +5,10 @@
 import argparse
 import subprocess
 
-from ffhilfe.core.executable import where_if_ffmpeg
+from ffhilfe.core.executable import where_is_ffmpeg
 
 
-ffmpeg_bin = where_if_ffmpeg()
+ffmpeg_bin = where_is_ffmpeg()
 
 templates = {
     "webrip": {"ffmpeg_params": ["-acodec libfdk_aac -afterburner:a 1 -vbr:a 1 -profile:a aac_low -ac 1",
