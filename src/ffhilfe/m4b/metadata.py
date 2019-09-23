@@ -3,6 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from dataclasses import dataclass
+from pathlib import Path
 
 DEFAULT_TIMEBASE = (1, 1000)
 
@@ -26,3 +27,9 @@ class Metadata:
     artist: str = None
     chapters: tuple = tuple()
     stream: Stream = None
+
+    def as_ffmpeg(self):
+        template_source = Path.joinpath(Path(__file__).parent, Path('metadata_template.txt'))
+        with open(template_source, 'rt') as f:
+            template = f.read()
+        print(template)
