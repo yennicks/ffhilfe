@@ -5,7 +5,7 @@
 import argparse
 
 from .cropdetect.cli import cli as cropdetect_cli
-from .main import transcode_cli
+from .transcode.cli import cli as transcode_cli
 
 
 def cli():

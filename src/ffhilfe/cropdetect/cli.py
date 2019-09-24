@@ -2,7 +2,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from ..main import execute, ffmpeg_bin
+from ..main import execute
+from ffhilfe.core.executable import where_is_ffmpeg
 
 
 def handler(args):
@@ -10,7 +11,7 @@ def handler(args):
               f'-t 1',
               f'-vf cropdetect',
               f'-f null -']
-    execute(ffmpeg_bin, params, args)
+    execute(where_is_ffmpeg(), params, args)
 
 
 def cli(subparsers):

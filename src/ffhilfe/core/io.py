@@ -3,6 +3,8 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import logging
+import os
+from pathlib import Path
 import random
 import string
 
@@ -26,3 +28,8 @@ def get_temporary_filename(extension: str) -> str:
     temporary_filename = f"{prefix}.{extension}"
 
     return temporary_filename
+
+
+def get_temporary_file(extension: str) -> Path:
+    cwd = Path(os.getcwd())
+    return cwd.joinpath(get_temporary_filename(extension))
