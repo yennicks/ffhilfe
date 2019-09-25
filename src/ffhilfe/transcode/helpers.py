@@ -6,6 +6,7 @@ from pathlib import Path
 from ffhilfe.core.exception import FileExists
 from .settings import get_settings
 
+
 def output_name(file: Path) -> str:
     stem = file.stem
     output_format = get_settings(file).get('output_format')
