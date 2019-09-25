@@ -72,7 +72,7 @@ def execute(ffmpeg, params, args):
     assert ffmpeg, "ffmpeg binary is not defined."
     assert params, "params are not defined."
 
-    command = f"{ffmpeg} {' '.join(params)}"
+    command = f'"{ffmpeg}" {" ".join(params)}'
     print(f"Running: {command}")
     if not args.dry_run:
         subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
