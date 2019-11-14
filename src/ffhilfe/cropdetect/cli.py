@@ -8,8 +8,8 @@ from ffhilfe.core.executable import where_is_ffmpeg
 
 def handler(args):
     params = [f'-i "{args.input}"',
-              f'-t 1',
-              f'-vf cropdetect',
+              f'-t 5',
+              f'-vf "cropdetect=20:2:20"',
               f'-f null -']
     execute(where_is_ffmpeg(), params, args)
 
