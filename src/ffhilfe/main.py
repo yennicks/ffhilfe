@@ -6,6 +6,7 @@ import argparse
 import subprocess
 
 from ffhilfe.core.executable import where_is_ffmpeg
+from ffhilfe.core.io import get_temporary_filename
 
 
 ffmpeg_bin = where_is_ffmpeg()
