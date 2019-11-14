@@ -17,3 +17,11 @@ class FileDoesNotExist(FfhilfeException):
 
 class FileExists(FfhilfeException):
     pass
+
+
+class IsNotAFile(FfhilfeException):
+    pass
+
+
+class SettingsNotFound(FfhilfeException):
+    pass

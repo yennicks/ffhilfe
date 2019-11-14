@@ -39,5 +39,5 @@ def rewrap(src: Path, target: Path):
 
     mkvmerge = where_is_mkvmerge()
 
-    command = f'{mkvmerge} -o {target} {src}'
+    command = f'"{mkvmerge}" -o "{target}" "{src}"'
     subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)

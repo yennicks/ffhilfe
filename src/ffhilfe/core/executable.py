@@ -17,13 +17,32 @@ def get_from_environment_variables(executable: str) -> Optional[Path]:
     return None
 
 
-def get_from_working_directory(executable: str) -> Optional[Path]:
+def get_from_directory(executable: str, directory: Path) -> Optional[Path]:
+    assert directory.is_dir(), f'{directory} is not a directory...'
     if os.name == 'nt':
         executable += '.exe'
-    cwd = os.getcwd()
-    file = Path(cwd, executable)
+
+    file = directory.joinpath(executable)
     if file.exists():
         return file
+    return None
+
+
+def get_from_working_directory(executable: str) -> Optional[Path]:
+    cwd = Path(os.getcwd())
+    return get_from_directory(executable, cwd)
+
+
+def get_from_path(executable: str) -> Optional[Path]:
+    ospath = os.environ.get('PATH')
+
+    for path in ospath.split(os.pathsep):
+        directory = Path(path)
+        if directory.is_dir():
+            file = get_from_directory(executable, directory)
+            if file and file.exists():
+                return file
+
     return None
 
 
@@ -43,6 +62,8 @@ def get_from_anywhere(executable: str) -> Optional[Path]:
         return get_from_environment_variables(executable)
     if get_from_working_directory(executable):
         return get_from_working_directory(executable)
+    if get_from_path(executable):
+        return get_from_path(executable)
 
     return None
 
