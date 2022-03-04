@@ -25,3 +25,7 @@ class IsNotAFile(FfhilfeException):
 
 class SettingsNotFound(FfhilfeException):
     pass
+
+
+class ImplementationError(FfhilfeException):
+    pass

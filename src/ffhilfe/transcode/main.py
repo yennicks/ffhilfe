@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 from ffhilfe.core.executable import where_is_ffmpeg
+from ffhilfe.core.processes import run_idle
 from ffhilfe.core.io import get_temporary_file
 from ffhilfe.core.matroska import rewrap
 from .helpers import output_file
@@ -29,7 +30,7 @@ def process(file: Path):
     ]
     command = ' '. join(command)
     print(f"Running: {command}")
-    subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
+    run_idle(command)
 
     rewrap(tmp_target, target)
 
