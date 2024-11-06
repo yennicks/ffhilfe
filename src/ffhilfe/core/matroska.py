@@ -3,6 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from pathlib import Path
+import shutil
 
 from .exception import ExecutableNotFound, FileDoesNotExist, FileExists
 from .executable import get_from_anywhere
@@ -23,12 +24,13 @@ def where_is_mkvmerge():
     raise ExecutableNotFound('The mkvmerge executable has not been found.')
 
 
-def rewrap(src: Path, target: Path):
+def rewrap(src: Path, target: Path, output_format: str):
     """
     Rewrap file into a Matroska container.
 
     :param src: Path to the source
     :param target: Path to the target
+    :param output_format: The output format, i.e. mkv
     :return:
     """
     if not src.exists():
@@ -37,7 +39,9 @@ def rewrap(src: Path, target: Path):
     if target.exists():
         raise FileExists(f'The target file already exists. Target: {target}')
 
-    mkvmerge = where_is_mkvmerge()
-
-    command = f'"{mkvmerge}" -o "{target}" "{src}"'
-    run_shell(command)
+    if output_format == 'mkv':
+        mkvmerge = where_is_mkvmerge()
+        command = f'"{mkvmerge}" -o "{target}" "{src}"'
+        run_shell(command)
+    else:
+        shutil.copy(f'{src}', f'{target}')
