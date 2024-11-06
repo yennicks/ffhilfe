@@ -2,11 +2,11 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import subprocess
 from pathlib import Path
 
 from .exception import ExecutableNotFound, FileDoesNotExist, FileExists
 from .executable import get_from_anywhere
+from .processes import run_shell
 
 
 def where_is_mkvmerge():
@@ -40,4 +40,4 @@ def rewrap(src: Path, target: Path):
     mkvmerge = where_is_mkvmerge()
 
     command = f'"{mkvmerge}" -o "{target}" "{src}"'
-    subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
+    run_shell(command)

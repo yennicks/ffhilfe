@@ -3,11 +3,9 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import argparse
-import subprocess
 
 from ffhilfe.core.executable import where_is_ffmpeg
-from ffhilfe.core.io import get_temporary_filename
-
+from ffhilfe.core.processes import run_shell
 
 ffmpeg_bin = where_is_ffmpeg()
 
@@ -76,8 +74,7 @@ def execute(ffmpeg, params, args):
     command = f'"{ffmpeg}" {" ".join(params)}'
     print(f"Running: {command}")
     if not args.dry_run:
-        subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
-
+        run_shell(command)
 
 def transcode_handler(args):
     template_names = [k for k in templates.keys()]
