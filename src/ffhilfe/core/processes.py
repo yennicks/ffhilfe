@@ -3,10 +3,14 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import subprocess
-import sys
+import platform
 
 def run_shell(command: str):
-    if sys.platform.startswith('win'):
-        subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
-    else:
-        subprocess.run(command, shell=True)
+    match platform.system():
+        case 'Windows':
+            subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
+        case 'Darwin':
+            command = f"taskpolicy -c background {command}"
+            subprocess.run(command, shell=True)
+        case _:
+            subprocess.run(command, shell=True)
