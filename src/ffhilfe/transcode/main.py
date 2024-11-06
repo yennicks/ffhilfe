@@ -10,17 +10,18 @@ from ffhilfe.core.io import get_temporary_file
 from ffhilfe.core.matroska import rewrap
 from .helpers import output_file
 from .settings import get_settings
+from ..core.processes import run_shell
 
 
 def process(file: Path):
     print(file.absolute())
 
     parameters = get_settings(file).get('parameters')
+    output_format = get_settings(file).get('output_format', 'mkv')
     assert parameters, 'cant be none!'
     print(parameters)
-    tmp_target = get_temporary_file('mkv')
+    tmp_target = get_temporary_file(output_format)
     target = output_file(file)
-    command = f'{where_is_ffmpeg()}' # " -i '{file.absolute()}' {parameters} {tmp_target}"
     command = [
         f'"{where_is_ffmpeg().absolute()}"',
         f'-i "{file.absolute()}"',
@@ -28,9 +29,7 @@ def process(file: Path):
         f'"{tmp_target.absolute()}"',
     ]
     command = ' '. join(command)
-    print(f"Running: {command}")
-    subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
-
-    rewrap(tmp_target, target)
+    run_shell(command)
+    rewrap(tmp_target, target, output_format)
 
     os.remove(tmp_target)

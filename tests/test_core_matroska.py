@@ -12,7 +12,7 @@ class PathExists(Path):
     """
     Mocked Path class.
     """
-    _flavour = Path()._flavour  # Hack so that Path allows to subclass itself.
+    # _flavour = Path()._flavour  # Hack so that Path allows to subclass itself.
 
     def exists(self) -> bool:
         return True
@@ -22,7 +22,7 @@ class PathDoesNotExist(Path):
     """
     Mocked Path class.
     """
-    _flavour = Path()._flavour  # Hack so that Path allows to subclass itself.
+    # _flavour = Path()._flavour  # Hack so that Path allows to subclass itself.
 
     def exists(self) -> bool:
         return False
