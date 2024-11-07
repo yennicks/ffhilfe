@@ -6,7 +6,6 @@ import enum
 import os
 import subprocess
 import platform
-from sys import platform
 
 from ffhilfe.core.exception import ImplementationError
 
@@ -29,16 +28,18 @@ def _run_windows(command, priority):
 
     subprocess.run(command, shell=True, creationflags=priority_class)
 
+def _run_macos(command, priority):
+    """
+    Run a command a macOS (Darwin)
+    """
+    if priority is Priorities.NORMAL:
+        subprocess.run(command, shell=True)
+    elif priority is Priorities.IDLE:
+        command = f"taskpolicy -c background {command}"
+        subprocess.run(command, shell=True)
+    else:
+        raise ImplementationError('Requested priority noy implemented.')
 
-def run_shell(command: str):
-    match platform.system():
-        case 'Windows':
-            subprocess.run(command, shell=True, creationflags=subprocess.IDLE_PRIORITY_CLASS)
-        case 'Darwin':
-            command = f"taskpolicy -c background {command}"
-            subprocess.run(command, shell=True)
-        case _:
-            subprocess.run(command, shell=True)
 def _run_unix(command, priority):
     """
     Run a command a Unix-like OS
@@ -56,18 +57,13 @@ def _run_unix(command, priority):
         subprocess.run(command, shell=True)
 
 
-def _run(command, priority):
-    """
-    Run a command
-    """
-    if platform == "win32":
-        _run_windows(command, priority)
-    else:
-        _run_unix(command, priority)
+def run_shell(command: str):
+    priority = Priorities.IDLE
 
-
-def run_idle(command: str) -> None:
-    """
-    Run a command with lowest priority
-    """
-    _run(command, Priorities.IDLE)
+    match platform.system():
+        case 'Windows':
+            _run_windows(command, priority)
+        case 'Darwin':
+            _run_macos(command, priority)
+        case _:
+            _run_unix(command, priority)
