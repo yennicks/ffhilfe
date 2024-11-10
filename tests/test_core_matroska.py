@@ -33,4 +33,4 @@ def test_rewrap(monkeypatch):
     target = PathDoesNotExist('/targetfile.mkv')
 
     with patch('ffhilfe.core.matroska.where_is_mkvmerge'), patch('subprocess.run'):
-        rewrap(src, target)
+        rewrap(src, target, 'mkv')

@@ -59,7 +59,7 @@ def _run_unix(command, priority):
 
 def run_shell(command: str):
     priority = Priorities.IDLE
-
+    print('Running command:', command)
     match platform.system():
         case 'Windows':
             _run_windows(command, priority)
