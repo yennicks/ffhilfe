@@ -16,3 +16,11 @@ optional arguments:
   -t TEMPLATE, --template TEMPLATE
                         The name of a predefined template
 ```
+
+# Example ffhilfe files
+
+Transcode video, keep original audio - for example, compress smartphone recording.
+```yaml
+parameters: '-c:a copy -c:v libx264 -profile:v high -preset:v veryslow -crf:v 32 -level:v 4.2'
+output_format: 'mp4'
+```
